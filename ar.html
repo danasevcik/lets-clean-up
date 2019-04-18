@@ -1,0 +1,47 @@
+<html>
+  <head>
+    <h2 id='title'>Let's Clean Up</h2>
+    <link rel="stylesheet" href="./ar.css" type="text/css">
+  </head>
+  <body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/92/three.min.js"></script>
+    <script>
+      const scene = new THREE.Scene();
+      // scene.background = new THREE.Color( 'white' );
+      const camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 1, 10000);
+      const renderer = new THREE.WebGLRenderer({ alpha: true });
+      renderer.setClearColor( 0xffffff, 0.5 );
+
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      document.body.appendChild(renderer.domElement);
+
+      var x = 100, y = 100;
+
+      var heartShape = new THREE.Shape();
+
+      heartShape.moveTo( x + 5, y + 5 );
+      heartShape.bezierCurveTo( x + 5, y + 5, x + 4, y, x, y );
+      heartShape.bezierCurveTo( x - 6, y, x - 6, y + 7,x - 6, y + 7 );
+      heartShape.bezierCurveTo( x - 6, y + 11, x - 3, y + 15.4, x + 5, y + 19 );
+      heartShape.bezierCurveTo( x + 12, y + 15.4, x + 16, y + 11, x + 16, y + 7 );
+      heartShape.bezierCurveTo( x + 16, y + 7, x + 16, y, x + 10, y );
+      heartShape.bezierCurveTo( x + 7, y, x + 5, y + 5, x + 5, y + 5 );
+      // var extrudeSettings = { amount: 8, bevelEnabled: true, bevelSegments: 2, steps: 2, bevelSize: 1, bevelThickness: 1 };
+      var geometry = new THREE.ShapeGeometry( heartShape );
+      var material = new THREE.MeshBasicMaterial( { color: 'hotpink' } );
+      var mesh = new THREE.Mesh( geometry, material ) ;
+
+      scene.add( mesh );
+      camera.position.z = 260;
+
+      function render() {
+        requestAnimationFrame(render);
+        mesh.rotation.x += 0.02;
+        mesh.rotation.y += 0.02;
+        renderer.render(scene, camera);
+      };
+
+      render();
+    </script>
+  </body>
+</html>
